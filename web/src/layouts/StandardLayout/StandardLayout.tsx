@@ -34,10 +34,11 @@ function classNames(...classes) {
 }
 
 type StandardLayoutProps = {
+  title?: string
   children?: React.ReactNode
 }
 
-const StandardLayout = ({ children }: StandardLayoutProps) => {
+const StandardLayout = ({ title, children }: StandardLayoutProps) => {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   return (
@@ -273,11 +274,14 @@ const StandardLayout = ({ children }: StandardLayoutProps) => {
 
               <main className="flex-1">
                 <div className="py-6">
-                  <div className="px-4 sm:px-6 lg:px-0">
-                    <h1 className="text-2xl font-semibold text-gray-900">
-                      Dashboard
-                    </h1>
-                  </div>
+                  {title && (
+                    <div className="px-4 sm:px-6 lg:px-0">
+                      <h1 className="text-2xl font-semibold text-gray-900">
+                        {title}
+                      </h1>
+                    </div>
+                  )}
+
                   <div className="px-4 sm:px-6 lg:px-0">{children}</div>
                 </div>
               </main>

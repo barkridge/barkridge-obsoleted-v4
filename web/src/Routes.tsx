@@ -9,13 +9,12 @@
 
 import { Router, Route, Set } from '@redwoodjs/router'
 
-import StandardLayout from 'src/layouts/StandardLayout/StandardLayout'
-
 const Routes = () => {
   return (
     <Router>
-      <Set wrap={StandardLayout}>
+      <Set>
         <Route path="/" page={HomePage} name="home" />
+        <Route path="/url" page={URLPage} name="url" />
       </Set>
 
       <Route notfound page={NotFoundPage} />

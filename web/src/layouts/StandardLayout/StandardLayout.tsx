@@ -2,16 +2,18 @@ import { useState } from 'react'
 
 import {
   AppShell,
-  Navbar,
   Header,
   MediaQuery,
   Burger,
   useMantineTheme,
-  Text,
-  Aside,
-  Footer,
   MantineTheme,
+  Group,
+  ActionIcon,
 } from '@mantine/core'
+import { IconMoonStars, IconSun } from '@tabler/icons-react'
+
+import { Logo } from './_Logo'
+import { NavbarNested } from './_NavbarNested'
 
 type StandardLayoutProps = {
   children?: React.ReactNode
@@ -25,9 +27,7 @@ const StandardLayout = ({ children }: StandardLayoutProps) => {
   return (
     <AppShell
       padding="md"
-      navbar={<CustomNavbar opened={opened} />}
-      aside={<CustomAside />}
-      footer={<CustomFooter />}
+      navbar={<NavbarNested opened={opened} />}
       header={
         <CustomHeader theme={theme} opened={opened} setOpened={setOpened} />
       }
@@ -40,7 +40,6 @@ const StandardLayout = ({ children }: StandardLayoutProps) => {
         },
       }}
       navbarOffsetBreakpoint="sm"
-      asideOffsetBreakpoint="sm"
     >
       {children}
     </AppShell>
@@ -48,41 +47,6 @@ const StandardLayout = ({ children }: StandardLayoutProps) => {
 }
 
 export default StandardLayout
-
-interface CustomNavbarProps {
-  opened: boolean
-}
-
-const CustomNavbar = ({ opened }: CustomNavbarProps) => {
-  return (
-    <Navbar
-      p="md"
-      hiddenBreakpoint="sm"
-      hidden={!opened}
-      width={{ sm: 200, lg: 300 }}
-    >
-      <Text>Application navbar</Text>
-    </Navbar>
-  )
-}
-
-const CustomAside = () => {
-  return (
-    <MediaQuery smallerThan="sm" styles={{ display: 'none' }}>
-      <Aside p="md" hiddenBreakpoint="sm" width={{ sm: 200, lg: 300 }}>
-        <Text>&nbsp;</Text>
-      </Aside>
-    </MediaQuery>
-  )
-}
-
-const CustomFooter = () => {
-  return (
-    <Footer height={60} p="md">
-      Application footer
-    </Footer>
-  )
-}
 
 interface CustomHeaderProps {
   theme: MantineTheme
@@ -100,11 +64,19 @@ const CustomHeader = ({ theme, opened, setOpened }: CustomHeaderProps) => {
             onClick={() => setOpened((o) => !o)}
             size="sm"
             color={theme.colors.gray[6]}
-            mr="xl"
           />
         </MediaQuery>
 
-        <Text>Application header</Text>
+        <Group px={20} position="apart">
+          <Logo colorScheme={theme.colorScheme} />
+          <ActionIcon variant="default" size={30}>
+            {theme.colorScheme === 'dark' ? (
+              <IconSun size="1rem" />
+            ) : (
+              <IconMoonStars size="1rem" />
+            )}
+          </ActionIcon>
+        </Group>
       </div>
     </Header>
   )

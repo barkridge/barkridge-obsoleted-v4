@@ -2,7 +2,7 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['src/**/*.{js,jsx,ts,tsx}'],
+  content: ['src/**/*.{js,jsx,ts,tsx}', 'src/index.html'],
   darkMode: 'class',
   theme: {
     extend: {
@@ -11,5 +11,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/forms')],
 }

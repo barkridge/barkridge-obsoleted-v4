@@ -17,6 +17,8 @@ const Routes = () => {
         <Route path="/url" page={URLPage} name="url" />
       </Set>
 
+      <Route path="/{id}" page={RedirectPage} name="redirect" />
+
       <Route notfound page={NotFoundPage} />
     </Router>
   )

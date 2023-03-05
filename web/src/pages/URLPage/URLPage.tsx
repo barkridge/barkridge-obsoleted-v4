@@ -67,17 +67,17 @@ interface FormSectionProps {
 const FormSection = ({ onCreated }: FormSectionProps) => {
   const formMethods = useForm<FieldValues>()
 
-  const [create] = useMutation<CreateUrlMutation, CreateUrlMutationVariables>(
-    CREATE_URL,
-    {
-      onCompleted: ({ createUrl: { id, url } }) => {
-        onCreated({ id, url })
-        formMethods.reset()
+  const [create, { loading }] = useMutation<
+    CreateUrlMutation,
+    CreateUrlMutationVariables
+  >(CREATE_URL, {
+    onCompleted: ({ createUrl: { id, url } }) => {
+      onCreated({ id, url })
+      formMethods.reset()
 
-        toast.success('Completed!')
-      },
-    }
-  )
+      toast.success('Completed!')
+    },
+  })
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     create({ variables: { input: data } })
@@ -104,7 +104,10 @@ const FormSection = ({ onCreated }: FormSectionProps) => {
             </div>
 
             <div className="flex justify-end">
-              <Submit className="inline-flex w-full justify-center rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 lg:w-auto">
+              <Submit
+                className="inline-flex w-full justify-center rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 lg:w-auto"
+                disabled={loading}
+              >
                 Submit
               </Submit>
             </div>
@@ -127,6 +130,8 @@ const ResultsSection = ({ results }: ResultsSectionProps) => {
       <a
         href={`${origin}/${id}`}
         className="text-sky-500"
+        target="_blank"
+        rel="noreferrer"
       >{`${origin}/${id}`}</a>
     )
   }
